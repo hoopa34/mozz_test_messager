@@ -14,4 +14,26 @@ abstract class AppTestStyles {
     fontWeight: FontWeight.w500,
     color: AppColors.gray,
   );
+  static TextStyle profileAvatar = TextStyle(
+    fontSize: 20,
+    height: 24.76 / 20,
+    fontWeight: FontWeight.w700,
+    color: AppColors.background,
+  );
+  static TextStyle profileTitle = TextStyle(
+    fontSize: 15,
+    height: 18.38 / 15,
+    fontWeight: FontWeight.w600,
+    color: AppColors.deepDark,
+  );
+  static TextStyle profileYou = TextStyle(
+    fontSize: 12,
+    height: 14.56 / 12,
+    color: AppColors.black,
+  );
+  static TextStyle profileMessage = TextStyle(
+    fontSize: 12,
+    height: 14.56 / 12,
+    color: AppColors.darkGray,
+  );
 }

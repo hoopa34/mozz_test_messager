@@ -8,7 +8,7 @@ class PageContactsAppBar extends StatefulWidget implements PreferredSizeWidget {
   @override
   final Size preferredSize;
   const PageContactsAppBar({super.key})
-      : preferredSize = const Size.fromHeight(169);
+      : preferredSize = const Size.fromHeight(147);
 
   @override
   State<PageContactsAppBar> createState() => _PageContactsAppBarState();
@@ -19,6 +19,7 @@ class _PageContactsAppBarState extends State<PageContactsAppBar> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Column(
+        mainAxisSize: MainAxisSize.min,
         // Основная колонна для виджетов
         children: [
           Padding(
@@ -38,7 +39,10 @@ class _PageContactsAppBarState extends State<PageContactsAppBar> {
               ],
             ),
           ),
-          Divider(color: AppColors.stroke),
+          Divider(
+            color: AppColors.stroke,
+            height: 1,
+          ),
         ],
       ),
     );

@@ -13,4 +13,10 @@ abstract class AppGradients {
     Color.fromRGBO(0, 172, 246, 1),
     Color.fromRGBO(0, 109, 237, 1),
   ]);
+
+  static List<Gradient> allGradients = [
+    green,
+    orange,
+    blue,
+  ];
 }

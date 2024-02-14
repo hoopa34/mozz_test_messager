@@ -6,4 +6,5 @@ abstract class AppTexts {
   static const String chats = 'Чаты';
   static const String search = 'Поиск';
   static const String message = 'Сообщение';
+  static const String you = 'Вы:';
 }
