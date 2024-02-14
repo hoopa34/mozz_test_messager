@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mozz_test_messenger/ui/theme/app_colors/app_colors.dart';
+import 'package:mozz_test_messenger/ui/theme/app_texts/app_text_styles.dart';
 
 class MessageWidget extends StatelessWidget {
   final bool isUser;
@@ -15,6 +16,8 @@ class MessageWidget extends StatelessWidget {
           padding: const EdgeInsets.symmetric(horizontal: 11),
           child: Container(
             padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+            constraints: BoxConstraints(
+                maxWidth: MediaQuery.of(context).size.width * 0.75),
             decoration: BoxDecoration(
               color: isUser ? AppColors.green : AppColors.stroke,
               borderRadius: BorderRadiusDirectional.only(
@@ -24,7 +27,10 @@ class MessageWidget extends StatelessWidget {
                 bottomEnd: isUser ? Radius.zero : const Radius.circular(21),
               ),
             ),
-            child: const Text('123'),
+            child: Text(
+              'А вот и максимально возможная проверка текста, знаешь, а это много',
+              style: isUser ? AppTestStyles.userMessage : AppTestStyles.contactMessage,
+            ),
           ),
         ),
         // Блок хвоста сообщения

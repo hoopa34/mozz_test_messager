@@ -36,4 +36,16 @@ abstract class AppTestStyles {
     height: 14.56 / 12,
     color: AppColors.darkGray,
   );
+  static TextStyle contactMessage = TextStyle(
+    fontSize: 14,
+    height: 16.98 / 14,
+    fontWeight: FontWeight.w500,
+    color: AppColors.black,
+  );
+  static TextStyle userMessage = TextStyle(
+    fontSize: 14,
+    height: 16.98 / 14,
+    fontWeight: FontWeight.w500,
+    color: AppColors.darkGreen,
+  );
 }
