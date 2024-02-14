@@ -68,6 +68,7 @@ class PageContactsAppBarSearch extends StatelessWidget {
         prefixIcon: const Icon(Icons.search),
         prefixIconColor: AppColors.gray,
         hintText: AppTexts.search,
+        hintStyle: AppTestStyles.search,
         border: const OutlineInputBorder(
           borderSide: BorderSide.none,
           borderRadius: BorderRadius.all(Radius.circular(12)),
