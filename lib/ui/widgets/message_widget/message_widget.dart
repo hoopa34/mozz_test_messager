@@ -5,10 +5,12 @@ import 'package:mozz_test_messenger/ui/theme/app_texts/app_text_styles.dart';
 class MessageWidget extends StatelessWidget {
   final bool isUser;
   final bool isWatched;
+  final String text;
   const MessageWidget({
     super.key,
     this.isUser = true,
     this.isWatched = false,
+    this.text = 'Пустое сообщение'
   });
 
   @override
@@ -40,7 +42,8 @@ class MessageWidget extends StatelessWidget {
                 Padding(
                   padding: const EdgeInsets.only(right: 50),
                   child: Text(
-                    'А вот и максимально возможная дальность сообщения что я накидал на ходу',
+                    text,
+                    // 'А вот и максимально возможная дальность сообщения что я накидал на ходу',
                     // 'А вот и максимально',
                     style: isUser
                         ? AppTestStyles.userMessage

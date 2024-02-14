@@ -25,11 +25,23 @@ class PageChatContetnMessages extends StatelessWidget {
       child: ListView.separated(
         padding: const EdgeInsets.symmetric(horizontal: 10),
         itemBuilder: (context, index) {
+          // Первое сообщение
           if (index == 0) {
-            return const SizedBox(height: 30);
+            return Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                MessageWidget(
+                  isUser: true,
+                  text: '$index',
+                ),
+                const SizedBox(height: 30),
+              ],
+            );
           }
-          return const MessageWidget(
+          // Обычное сообщение
+          return MessageWidget(
             isUser: false,
+            text: '$index',
           );
         },
         separatorBuilder: (context, index) => const SizedBox(height: 20),
