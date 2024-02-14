@@ -1,8 +1,5 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'package:mozz_test_messenger/ui/theme/app_colors/app_colors.dart';
-import 'package:mozz_test_messenger/ui/theme/app_colors/app_gradients.dart';
 import 'package:mozz_test_messenger/ui/theme/app_texts/app_text_styles.dart';
 import 'package:mozz_test_messenger/ui/theme/app_texts/app_texts.dart';
 import 'package:mozz_test_messenger/ui/widgets/user_avatar/user_avatar.dart';
