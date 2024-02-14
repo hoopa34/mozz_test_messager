@@ -33,9 +33,9 @@ class _PageContactsAppBarState extends State<PageContactsAppBar> {
       child: Column(
         // Основная колонна для виджетов
         children: [
-          const Padding(
+          Padding(
             // Чаты и поиск
-            padding: EdgeInsets.only(
+            padding: const EdgeInsets.only(
               top: 14,
               left: 20,
               right: 20,
@@ -44,12 +44,9 @@ class _PageContactsAppBarState extends State<PageContactsAppBar> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(
-                  AppTexts.chats,
-                  style: AppTestStyles.chats
-                ),
-                SizedBox(height: 6),
-                PageContactsAppBarSearch(),
+                Text(AppTexts.chats, style: AppTestStyles.chats),
+                const SizedBox(height: 6),
+                const PageContactsAppBarSearch(),
               ],
             ),
           ),
@@ -60,6 +57,7 @@ class _PageContactsAppBarState extends State<PageContactsAppBar> {
   }
 }
 
+// Окно поиска
 class PageContactsAppBarSearch extends StatelessWidget {
   const PageContactsAppBarSearch({
     super.key,
@@ -67,12 +65,20 @@ class PageContactsAppBarSearch extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      height: 42,
-      decoration: BoxDecoration(
-        color: AppColors.stroke,
-        borderRadius: BorderRadiusDirectional.circular(12),
-      ),
+    return TextField(
+      decoration: InputDecoration(
+          filled: true,
+          contentPadding: const EdgeInsets.symmetric(
+            horizontal: 16,
+            vertical: 8,
+          ),
+          fillColor: AppColors.stroke,
+          prefixIcon: const Icon(Icons.search),
+          prefixIconColor: AppColors.gray,
+          hintText: AppTexts.search,
+          border: const OutlineInputBorder(
+              borderSide: BorderSide.none,
+              borderRadius: BorderRadius.all(Radius.circular(12)))),
     );
   }
 }
