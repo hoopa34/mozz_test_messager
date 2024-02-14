@@ -6,8 +6,9 @@ class App extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
-      home: PageContacts(),
+    return MaterialApp(
+      theme: ThemeData(fontFamily: 'Gilroy'),
+      home: const PageContacts(),
     );
   }
 }
