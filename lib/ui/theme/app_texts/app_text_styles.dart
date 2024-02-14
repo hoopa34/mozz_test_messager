@@ -48,4 +48,10 @@ abstract class AppTestStyles {
     fontWeight: FontWeight.w500,
     color: AppColors.darkGreen,
   );
+  static TextStyle date = TextStyle(
+    fontSize: 14,
+    height: 16.98 / 14,
+    fontWeight: FontWeight.w500,
+    color: AppColors.gray,
+  );
 }

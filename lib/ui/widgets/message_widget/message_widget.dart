@@ -40,7 +40,7 @@ class MessageWidget extends StatelessWidget {
               children: [
                 // Сообщение пользователя
                 Padding(
-                  padding: const EdgeInsets.only(right: 50),
+                  padding: EdgeInsets.only(right: isUser ? 60 : 50),
                   child: Text(
                     text,
                     // 'А вот и максимально возможная дальность сообщения что я накидал на ходу',
