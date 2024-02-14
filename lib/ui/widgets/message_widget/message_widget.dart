@@ -4,7 +4,12 @@ import 'package:mozz_test_messenger/ui/theme/app_texts/app_text_styles.dart';
 
 class MessageWidget extends StatelessWidget {
   final bool isUser;
-  const MessageWidget({super.key, this.isUser = true});
+  final bool isWatched;
+  const MessageWidget({
+    super.key,
+    this.isUser = true,
+    this.isWatched = false,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -17,7 +22,8 @@ class MessageWidget extends StatelessWidget {
           child: Container(
             padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
             constraints: BoxConstraints(
-                maxWidth: MediaQuery.of(context).size.width * 0.75),
+              maxWidth: MediaQuery.of(context).size.width * 0.75,
+            ),
             decoration: BoxDecoration(
               color: isUser ? AppColors.green : AppColors.stroke,
               borderRadius: BorderRadiusDirectional.only(
@@ -27,9 +33,15 @@ class MessageWidget extends StatelessWidget {
                 bottomEnd: isUser ? Radius.zero : const Radius.circular(21),
               ),
             ),
-            child: Text(
-              'А вот и максимально возможная проверка текста, знаешь, а это много',
-              style: isUser ? AppTestStyles.userMessage : AppTestStyles.contactMessage,
+            child: Padding(
+              padding: const EdgeInsets.only(right: 50),
+              child: Text(
+                // 'А вот и максимально возможная дальность сообщения что я накидал на ходу',
+                'А вот и максимально',
+                style: isUser
+                    ? AppTestStyles.userMessage
+                    : AppTestStyles.contactMessage,
+              ),
             ),
           ),
         ),
@@ -56,6 +68,31 @@ class MessageWidget extends StatelessWidget {
             ),
           ),
         ),
+        // Время и галочки
+        SizedBox(
+          child: Padding(
+            padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 12 + 11),
+            child: Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Text(
+                  '12:00',
+                  style: AppTestStyles.profileMessage,
+                ),
+                const SizedBox(width: 4),
+                isWatched
+                    ? const Icon(
+                        Icons.done_all,
+                        size: 12,
+                      )
+                    : const Icon(
+                        Icons.done,
+                        size: 12,
+                      ),
+              ],
+            ),
+          ),
+        )
       ],
     );
   }
