@@ -33,15 +33,45 @@ class MessageWidget extends StatelessWidget {
                 bottomEnd: isUser ? Radius.zero : const Radius.circular(21),
               ),
             ),
-            child: Padding(
-              padding: const EdgeInsets.only(right: 50),
-              child: Text(
-                // 'А вот и максимально возможная дальность сообщения что я накидал на ходу',
-                'А вот и максимально',
-                style: isUser
-                    ? AppTestStyles.userMessage
-                    : AppTestStyles.contactMessage,
-              ),
+            child: Stack(
+              alignment: Alignment.bottomRight,
+              children: [
+                // Сообщение пользователя
+                Padding(
+                  padding: const EdgeInsets.only(right: 50),
+                  child: Text(
+                    'А вот и максимально возможная дальность сообщения что я накидал на ходу',
+                    // 'А вот и максимально',
+                    style: isUser
+                        ? AppTestStyles.userMessage
+                        : AppTestStyles.contactMessage,
+                  ),
+                ),
+                // Таймер на сообщении
+                SizedBox(
+                  child: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Text(
+                        '12:00',
+                        style: AppTestStyles.profileMessage,
+                      ),
+                      const SizedBox(width: 4),
+                      isUser
+                          ? isWatched
+                              ? const Icon(
+                                  Icons.done_all,
+                                  size: 12,
+                                )
+                              : const Icon(
+                                  Icons.done,
+                                  size: 12,
+                                )
+                          : const SizedBox(),
+                    ],
+                  ),
+                ),
+              ],
             ),
           ),
         ),
@@ -68,31 +98,6 @@ class MessageWidget extends StatelessWidget {
             ),
           ),
         ),
-        // Время и галочки
-        SizedBox(
-          child: Padding(
-            padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 12 + 11),
-            child: Row(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Text(
-                  '12:00',
-                  style: AppTestStyles.profileMessage,
-                ),
-                const SizedBox(width: 4),
-                isWatched
-                    ? const Icon(
-                        Icons.done_all,
-                        size: 12,
-                      )
-                    : const Icon(
-                        Icons.done,
-                        size: 12,
-                      ),
-              ],
-            ),
-          ),
-        )
       ],
     );
   }

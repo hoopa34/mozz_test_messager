@@ -29,7 +29,7 @@ class PageChatContetnMessages extends StatelessWidget {
             return const SizedBox(height: 30);
           }
           return const MessageWidget(
-            isUser: true,
+            isUser: false,
           );
         },
         separatorBuilder: (context, index) => const SizedBox(height: 20),
