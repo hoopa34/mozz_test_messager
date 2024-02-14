@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mozz_test_messenger/ui/theme/app_colors/app_colors.dart';
+import 'package:mozz_test_messenger/ui/theme/app_texts/app_text_styles.dart';
 import 'package:mozz_test_messenger/ui/theme/app_texts/app_texts.dart';
 
 // Страница контактов
@@ -31,11 +32,10 @@ class _PageContactsAppBarState extends State<PageContactsAppBar> {
     return SafeArea(
       child: Column(
         // Основная колонна для виджетов
-        mainAxisAlignment: MainAxisAlignment.end,
         children: [
-          Padding(
+          const Padding(
             // Чаты и поиск
-            padding: const EdgeInsets.only(
+            padding: EdgeInsets.only(
               top: 14,
               left: 20,
               right: 20,
@@ -44,14 +44,34 @@ class _PageContactsAppBarState extends State<PageContactsAppBar> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(AppTexts.chats),
-                const SizedBox(height: 6),
-                Container(),
+                Text(
+                  AppTexts.chats,
+                  style: AppTestStyles.chats
+                ),
+                SizedBox(height: 6),
+                PageContactsAppBarSearch(),
               ],
             ),
           ),
           Divider(color: AppColors.stroke),
         ],
+      ),
+    );
+  }
+}
+
+class PageContactsAppBarSearch extends StatelessWidget {
+  const PageContactsAppBarSearch({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      height: 42,
+      decoration: BoxDecoration(
+        color: AppColors.stroke,
+        borderRadius: BorderRadiusDirectional.circular(12),
       ),
     );
   }
