@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:mozz_test_messenger/ui/pages/page_chat/page_chat.dart';
 import 'package:mozz_test_messenger/ui/pages/page_contacts/page_contacts.dart';
 
 class App extends StatelessWidget {
@@ -9,7 +8,7 @@ class App extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       theme: ThemeData(fontFamily: 'Gilroy'),
-      home: const PageChat(),
+      home: const PageContacts(),
     );
   }
 }

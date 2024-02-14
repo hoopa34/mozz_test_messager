@@ -23,8 +23,11 @@ class _PageChatAppBarState extends State<PageChatAppBar> {
           Row(
             children: [
               const SizedBox(width: 20),
+              // Кнопка выхода
               IconButton(
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.pop(context);
+                },
                 icon: Icon(
                   Icons.arrow_back_ios_new_rounded,
                   color: AppColors.black,

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mozz_test_messenger/ui/pages/page_chat/page_chat.dart';
 import 'package:mozz_test_messenger/ui/theme/app_colors/app_colors.dart';
 import 'package:mozz_test_messenger/ui/theme/app_texts/app_text_styles.dart';
 import 'package:mozz_test_messenger/ui/theme/app_texts/app_texts.dart';
@@ -24,28 +25,38 @@ class PageContactsContentContact extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      child: SizedBox(
-        child: Column(
-          children: [
-            const Padding(
-              padding: EdgeInsets.symmetric(vertical: 10),
-              child: Row(
-                children: [
-                  UserAvatar(),
-                  SizedBox(width: 12),
-                  PageContactsContentContactTitle(),
-                  Spacer(),
-                  PageContactsContentContactDate(),
-                ],
-              ),
+    return TextButton(
+      onPressed: () {
+        Navigator.of(context).push(
+          MaterialPageRoute(
+            builder: (context) => const PageChat(),
+          ),
+        );
+      },
+      style: ButtonStyle(
+        padding: const MaterialStatePropertyAll(EdgeInsets.zero),
+        shape: const MaterialStatePropertyAll(RoundedRectangleBorder()),
+        overlayColor: MaterialStatePropertyAll(AppColors.stroke),
+      ),
+      child: Column(
+        children: [
+          const Padding(
+            padding: EdgeInsets.symmetric(vertical: 10),
+            child: Row(
+              children: [
+                UserAvatar(),
+                SizedBox(width: 12),
+                PageContactsContentContactTitle(),
+                Spacer(),
+                PageContactsContentContactDate(),
+              ],
             ),
-            Divider(
-              color: AppColors.stroke,
-              height: 2,
-            )
-          ],
-        ),
+          ),
+          Divider(
+            color: AppColors.stroke,
+            height: 2,
+          )
+        ],
       ),
     );
   }
@@ -87,9 +98,11 @@ class PageContactsContentContactDate extends StatelessWidget {
     return SizedBox(
       height: 50,
       child: Padding(
-        padding: const EdgeInsets.only(right: 12),
-        child: Text('01.01.1999', style: AppTestStyles.profileMessage,)
-      ),
+          padding: const EdgeInsets.only(right: 12),
+          child: Text(
+            '01.01.1999',
+            style: AppTestStyles.profileMessage,
+          )),
     );
   }
 }
