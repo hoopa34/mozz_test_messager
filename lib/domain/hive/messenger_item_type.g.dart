@@ -6,9 +6,52 @@ part of 'messenger_item_type.dart';
 // TypeAdapterGenerator
 // **************************************************************************
 
-class MessengerItemTypeAdapter extends TypeAdapter<MessengerItemType> {
+class MessageItemTypeAdapter extends TypeAdapter<MessageItemType> {
   @override
   final int typeId = 0;
+
+  @override
+  MessageItemType read(BinaryReader reader) {
+    final numOfFields = reader.readByte();
+    final fields = <int, dynamic>{
+      for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
+    };
+    return MessageItemType(
+      isUser: fields[1] as bool,
+      isWatched: fields[2] as bool,
+      message: fields[0] as String,
+      messageDate: fields[3] as DateTime,
+    );
+  }
+
+  @override
+  void write(BinaryWriter writer, MessageItemType obj) {
+    writer
+      ..writeByte(4)
+      ..writeByte(0)
+      ..write(obj.message)
+      ..writeByte(1)
+      ..write(obj.isUser)
+      ..writeByte(2)
+      ..write(obj.isWatched)
+      ..writeByte(3)
+      ..write(obj.messageDate);
+  }
+
+  @override
+  int get hashCode => typeId.hashCode;
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is MessageItemTypeAdapter &&
+          runtimeType == other.runtimeType &&
+          typeId == other.typeId;
+}
+
+class MessengerItemTypeAdapter extends TypeAdapter<MessengerItemType> {
+  @override
+  final int typeId = 1;
 
   @override
   MessengerItemType read(BinaryReader reader) {
@@ -48,49 +91,6 @@ class MessengerItemTypeAdapter extends TypeAdapter<MessengerItemType> {
   bool operator ==(Object other) =>
       identical(this, other) ||
       other is MessengerItemTypeAdapter &&
-          runtimeType == other.runtimeType &&
-          typeId == other.typeId;
-}
-
-class MessageItemTypeAdapter extends TypeAdapter<MessageItemType> {
-  @override
-  final int typeId = 1;
-
-  @override
-  MessageItemType read(BinaryReader reader) {
-    final numOfFields = reader.readByte();
-    final fields = <int, dynamic>{
-      for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
-    };
-    return MessageItemType(
-      isUser: fields[1] as bool,
-      isWatched: fields[2] as bool,
-      message: fields[0] as String,
-      messageDate: fields[3] as DateTime,
-    );
-  }
-
-  @override
-  void write(BinaryWriter writer, MessageItemType obj) {
-    writer
-      ..writeByte(4)
-      ..writeByte(0)
-      ..write(obj.message)
-      ..writeByte(1)
-      ..write(obj.isUser)
-      ..writeByte(2)
-      ..write(obj.isWatched)
-      ..writeByte(3)
-      ..write(obj.messageDate);
-  }
-
-  @override
-  int get hashCode => typeId.hashCode;
-
-  @override
-  bool operator ==(Object other) =>
-      identical(this, other) ||
-      other is MessageItemTypeAdapter &&
           runtimeType == other.runtimeType &&
           typeId == other.typeId;
 }

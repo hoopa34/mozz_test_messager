@@ -3,6 +3,25 @@ import 'package:hive/hive.dart';
 part 'messenger_item_type.g.dart';
 
 @HiveType(typeId: 0)
+class MessageItemType{
+  @HiveField(0)
+  String message;
+  @HiveField(1)
+  bool isUser;
+  @HiveField(2)
+  bool isWatched;
+  @HiveField(3)
+  DateTime messageDate;
+
+  MessageItemType({
+    required this.isUser,
+    required this.isWatched,
+    required this.message,
+    required this.messageDate,
+  });
+}
+
+@HiveType(typeId: 1)
 class MessengerItemType{
 
   @HiveField(0)
@@ -26,25 +45,5 @@ class MessengerItemType{
     required this.isOnline,
     required this.lastTimeOnline,
     required this.allMessages,
-  });
-
-}
-
-@HiveType(typeId: 1)
-class MessageItemType{
-  @HiveField(0)
-  String message;
-  @HiveField(1)
-  bool isUser;
-  @HiveField(2)
-  bool isWatched;
-  @HiveField(3)
-  DateTime messageDate;
-
-  MessageItemType({
-    required this.isUser,
-    required this.isWatched,
-    required this.message,
-    required this.messageDate,
   });
 }
