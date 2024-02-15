@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:mozz_test_messenger/domain/bloc/contacts_bloc/contacts_bloc.dart';
 import 'package:mozz_test_messenger/ui/theme/app_colors/app_colors.dart';
 import 'package:mozz_test_messenger/ui/theme/app_texts/app_text_styles.dart';
 import 'package:mozz_test_messenger/ui/theme/app_texts/app_texts.dart';
@@ -32,6 +34,7 @@ class _PageChatAppBarState extends State<PageChatAppBar> {
               // Кнопка выхода
               IconButton(
                 onPressed: () {
+                  context.read<ContactsBloc>().add(const ContactsLoadEvent());
                   Navigator.pop(context);
                 },
                 icon: Icon(

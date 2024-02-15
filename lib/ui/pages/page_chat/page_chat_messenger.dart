@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:mozz_test_messenger/domain/bloc/contacts_bloc/contacts_bloc.dart';
+import 'package:mozz_test_messenger/domain/bloc/messenger_bloc/messenger_bloc.dart';
 import 'package:mozz_test_messenger/ui/theme/app_colors/app_colors.dart';
 import 'package:mozz_test_messenger/ui/theme/app_texts/app_text_styles.dart';
 import 'package:mozz_test_messenger/ui/theme/app_texts/app_texts.dart';
@@ -12,7 +15,6 @@ class PageChatMessenger extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    TextEditingController controller = TextEditingController();
     return Column(
       children: [
         Divider(
@@ -32,7 +34,15 @@ class PageChatMessenger extends StatelessWidget {
                 width: MediaQuery.of(context).size.width * 0.65,
                 height: 42,
                 child: TextField(
-                  controller: controller,
+                  onSubmitted: (message) {
+                    context.read<MessengerBloc>().add(
+                          MessengerAddMessageEvent(
+                            accountId: accountId,
+                            message: message,
+                          ),
+                        );
+                    context.read<ContactsBloc>().add(const ContactsLoadEvent());
+                  },
                   decoration: InputDecoration(
                     filled: true,
                     contentPadding: const EdgeInsets.symmetric(

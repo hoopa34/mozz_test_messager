@@ -18,7 +18,6 @@ class MessengerBloc extends Bloc<MessengerEvent, MessengerState> {
   ) async {
     try {
       MessengerLoaded account;
-
       if (HiveBoxes.messengerItemType.isNotEmpty) {
         account = MessengerLoaded(
           item: HiveBoxes.messengerItemType.values.toList()[event.accountId],
@@ -52,8 +51,8 @@ class MessengerBloc extends Bloc<MessengerEvent, MessengerState> {
     Emitter<MessengerState> emit,
   ) async {
     try {
-      MessengerLoaded account;
-      account = MessengerLoaded(
+      MessengerAddedNewMessage account;
+      account = MessengerAddedNewMessage(
         item: HiveBoxes.messengerItemType.values.toList()[event.accountId],
       )..item.allMessages.insert(
             0,

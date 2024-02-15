@@ -17,3 +17,12 @@ final class MessengerLoaded extends MessengerState{
   @override
   List<Object> get props => [item];
 }
+
+final class MessengerAddedNewMessage extends MessengerState{
+  final MessengerItemType item;
+
+  const MessengerAddedNewMessage({required this.item});
+
+  @override
+  List<Object> get props => [item];
+}

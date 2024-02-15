@@ -19,7 +19,7 @@ class PageChat extends StatelessWidget {
             .read<MessengerBloc>()
             .add(MessengerLoadEvent(accountId: accountId));
         if (state is! MessengerLoaded) {
-          return const Center(child: CircularProgressIndicator());
+          return const Scaffold();
         }
         return Scaffold(
           appBar: PageChatAppBar(

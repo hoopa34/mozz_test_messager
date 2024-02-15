@@ -38,7 +38,7 @@ class UserAvatar extends StatelessWidget {
       outputText = data ?? "Error";
 
       List<String> list = outputText.split(' ');
-      outputText = list[0][0] + list[1][0];
+      outputText = list.length >= 2 ? list[0][0] + list[1][0] : list.isEmpty ? ' ' : list[0][0] ;
 
       return outputText;
     }
