@@ -31,10 +31,11 @@ class MessengerBloc extends Bloc<MessengerEvent, MessengerState> {
             lastTimeOnline: DateTime.now(),
             allMessages: [
               MessageItemType(
-                  isUser: false,
-                  isWatched: true,
-                  messageDate: DateTime.now(),
-                  message: 'Привет! Я простенький бот для симуляции!'),
+                isUser: false,
+                isWatched: true,
+                messageDate: DateTime.now(),
+                message: 'Привет! Я простенький бот для симуляции!',
+              ),
             ],
           ),
         );
