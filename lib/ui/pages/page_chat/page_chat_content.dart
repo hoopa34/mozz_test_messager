@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mozz_test_messenger/domain/bloc/messenger_bloc/messenger_bloc.dart';
-import 'package:mozz_test_messenger/domain/hive/messenger_item_type.dart';
 import 'package:mozz_test_messenger/ui/pages/page_chat/page_chat_messenger.dart';
 import 'package:mozz_test_messenger/ui/theme/app_colors/app_colors.dart';
 import 'package:mozz_test_messenger/ui/theme/app_texts/app_text_styles.dart';
