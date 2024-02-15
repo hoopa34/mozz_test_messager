@@ -1,13 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:mozz_test_messenger/ui/theme/app_colors/app_colors.dart';
 import 'package:mozz_test_messenger/ui/theme/app_texts/app_text_styles.dart';
+import 'package:mozz_test_messenger/ui/theme/app_texts/app_texts.dart';
 import 'package:mozz_test_messenger/ui/widgets/user_avatar/user_avatar.dart';
 
 class PageChatAppBar extends StatefulWidget implements PreferredSizeWidget {
+  final String accountName;
+  final bool isOnline;
   @override
   final Size preferredSize;
-  const PageChatAppBar({super.key})
-      : preferredSize = const Size.fromHeight(76);
+  const PageChatAppBar({
+    super.key,
+    required this.accountName,
+    required this.isOnline,
+  }) : preferredSize = const Size.fromHeight(76);
 
   @override
   State<PageChatAppBar> createState() => _PageChatAppBarState();
@@ -34,13 +40,20 @@ class _PageChatAppBarState extends State<PageChatAppBar> {
                 ),
               ),
               const SizedBox(width: 6),
-              const UserAvatar(),
+              // Аватар пользователя
+              UserAvatar(data: widget.accountName),
               const SizedBox(width: 12),
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text('Виктор Власов', style: AppTestStyles.profileTitle,),
-                  Text('В сети', style: AppTestStyles.profileMessage,),
+                  Text(
+                    widget.accountName,
+                    style: AppTestStyles.profileTitle,
+                  ),
+                  Text(
+                    widget.isOnline ? AppTexts.online : AppTexts.offline,
+                    style: AppTestStyles.profileMessage,
+                  ),
                 ],
               ),
             ],

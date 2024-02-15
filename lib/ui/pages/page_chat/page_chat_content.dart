@@ -1,25 +1,34 @@
 import 'package:flutter/material.dart';
+import 'package:mozz_test_messenger/domain/hive/messenger_item_type.dart';
 import 'package:mozz_test_messenger/ui/pages/page_chat/page_chat_messenger.dart';
 import 'package:mozz_test_messenger/ui/theme/app_colors/app_colors.dart';
 import 'package:mozz_test_messenger/ui/theme/app_texts/app_text_styles.dart';
 import 'package:mozz_test_messenger/ui/widgets/message_widget/message_widget.dart';
 
 class PageChatContent extends StatelessWidget {
-  const PageChatContent({super.key});
+  final List<MessageItemType> messages;
+  const PageChatContent({
+    super.key,
+    required this.messages,
+  });
 
   @override
   Widget build(BuildContext context) {
-    return const Column(
+    return Column(
       children: [
-        PageChatContetnMessages(),
-        PageChatMessenger(),
+        PageChatContetnMessages(messages: messages),
+        const PageChatMessenger(),
       ],
     );
   }
 }
 
 class PageChatContetnMessages extends StatelessWidget {
-  const PageChatContetnMessages({super.key});
+  final List<MessageItemType> messages;
+  const PageChatContetnMessages({
+    super.key,
+    required this.messages,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -27,40 +36,43 @@ class PageChatContetnMessages extends StatelessWidget {
       child: ListView.separated(
         padding: const EdgeInsets.symmetric(horizontal: 10),
         itemBuilder: (context, index) {
+          MessageItemType currentMessage = messages[index];
           // Первое сообщение
           if (index == 0) {
             return Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
                 MessageWidget(
-                  isUser: true,
-                  text: '$index',
+                  isUser: currentMessage.isUser,
+                  text: currentMessage.message,
                 ),
                 const SizedBox(height: 30),
               ],
             );
           }
-          if (index % 3 == 0) {
+          // Сообщение со сменой времени
+          if (currentMessage.messageDate.day ==
+              messages[index + 1].messageDate.day) {
             return Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
-                const PageChatContentDateSeparator(),
+                PageChatContentDateSeparator(date: currentMessage.messageDate),
                 const SizedBox(height: 20),
                 MessageWidget(
-                  isUser: false,
-                  text: '$index',
+                  isUser: currentMessage.isUser,
+                  text: currentMessage.message,
                 ),
               ],
             );
           }
           // Обычное сообщение
           return MessageWidget(
-            isUser: false,
-            text: '$index',
+            isUser: currentMessage.isUser,
+            text: currentMessage.message,
           );
         },
         separatorBuilder: (context, index) => const SizedBox(height: 20),
-        itemCount: 100,
+        itemCount: messages.length,
         reverse: true,
       ),
     );
@@ -68,7 +80,11 @@ class PageChatContetnMessages extends StatelessWidget {
 }
 
 class PageChatContentDateSeparator extends StatelessWidget {
-  const PageChatContentDateSeparator({super.key});
+  final DateTime date;
+  const PageChatContentDateSeparator({
+    super.key,
+    required this.date,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -85,7 +101,7 @@ class PageChatContentDateSeparator extends StatelessWidget {
               border: Border.all(color: AppColors.gray, width: 0.5)),
         ),
         Text(
-          '10.10.1999',
+          '${date.day}.${date.month}.${date.year}',
           style: AppTestStyles.date,
         ),
         Container(

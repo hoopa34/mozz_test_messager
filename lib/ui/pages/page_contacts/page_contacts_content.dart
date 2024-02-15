@@ -40,7 +40,9 @@ class PageContactsContentContact extends StatelessWidget {
       onPressed: () {
         Navigator.of(context).push(
           MaterialPageRoute(
-            builder: (context) => const PageChat(),
+            builder: (context) => PageChat(
+              accountId: contact.accountId,
+            ),
           ),
         );
       },
