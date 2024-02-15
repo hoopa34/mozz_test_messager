@@ -6,11 +6,13 @@ class MessageWidget extends StatelessWidget {
   final bool isUser;
   final bool isWatched;
   final String text;
+  final DateTime time;
   const MessageWidget({
     super.key,
     this.isUser = true,
     this.isWatched = false,
-    this.text = 'Пустое сообщение'
+    this.text = 'Пустое сообщение',
+    required this.time,
   });
 
   @override
@@ -56,7 +58,7 @@ class MessageWidget extends StatelessWidget {
                     mainAxisSize: MainAxisSize.min,
                     children: [
                       Text(
-                        '12:00',
+                        '${time.hour}:${time.minute}',
                         style: AppTestStyles.profileMessage,
                       ),
                       const SizedBox(width: 4),

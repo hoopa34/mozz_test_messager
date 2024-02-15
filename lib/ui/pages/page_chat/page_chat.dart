@@ -27,7 +27,7 @@ class PageChat extends StatelessWidget {
             isOnline: state.item.isOnline,
           ),
           body: PageChatContent(
-            messages: state.item.allMessages,
+            accountId: accountId,
           ),
         );
       },

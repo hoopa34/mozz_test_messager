@@ -13,7 +13,7 @@ class MessengerLoadEvent extends MessengerEvent {
 }
 
 class MessengerAddMessageEvent extends MessengerEvent {
-  final MessageItemType message;
+  final String message;
   final int accountId;
   const MessengerAddMessageEvent({
     required this.accountId,

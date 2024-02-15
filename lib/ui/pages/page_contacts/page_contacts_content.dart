@@ -138,8 +138,7 @@ class PageContactsContentContactDate extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     String datePicker() {
-      
-      if(isOnline){
+      if (isOnline) {
         return AppTexts.online;
       }
 
@@ -176,12 +175,13 @@ class PageContactsContentContactDate extends StatelessWidget {
     return SizedBox(
       height: 50,
       child: Padding(
-          padding: const EdgeInsets.only(right: 12),
-          child: Text(
-            datePicker(),
-            textAlign: TextAlign.end,
-            style: AppTestStyles.profileMessage,
-          )),
+        padding: const EdgeInsets.only(right: 12),
+        child: Text(
+          datePicker(),
+          textAlign: TextAlign.end,
+          style: AppTestStyles.profileMessage,
+        ),
+      ),
     );
   }
 }

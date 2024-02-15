@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:mozz_test_messenger/domain/bloc/messenger_bloc/messenger_bloc.dart';
 import 'package:mozz_test_messenger/domain/hive/messenger_item_type.dart';
 import 'package:mozz_test_messenger/ui/pages/page_chat/page_chat_messenger.dart';
 import 'package:mozz_test_messenger/ui/theme/app_colors/app_colors.dart';
@@ -6,75 +8,84 @@ import 'package:mozz_test_messenger/ui/theme/app_texts/app_text_styles.dart';
 import 'package:mozz_test_messenger/ui/widgets/message_widget/message_widget.dart';
 
 class PageChatContent extends StatelessWidget {
-  final List<MessageItemType> messages;
+  final int accountId;
   const PageChatContent({
     super.key,
-    required this.messages,
+    required this.accountId,
   });
 
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
-        PageChatContetnMessages(messages: messages),
-        const PageChatMessenger(),
+        const PageChatContetnMessages(),
+        PageChatMessenger(accountId: accountId),
       ],
     );
   }
 }
 
 class PageChatContetnMessages extends StatelessWidget {
-  final List<MessageItemType> messages;
   const PageChatContetnMessages({
     super.key,
-    required this.messages,
   });
 
   @override
   Widget build(BuildContext context) {
-    return Expanded(
-      child: ListView.separated(
-        padding: const EdgeInsets.symmetric(horizontal: 10),
-        itemBuilder: (context, index) {
-          MessageItemType currentMessage = messages[index];
-          // Первое сообщение
-          if (index == 0) {
-            return Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: [
-                MessageWidget(
-                  isUser: currentMessage.isUser,
-                  text: currentMessage.message,
-                ),
-                const SizedBox(height: 30),
-              ],
-            );
-          }
-          // Сообщение со сменой времени
-          if (currentMessage.messageDate.day ==
-              messages[index + 1].messageDate.day) {
-            return Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: [
-                PageChatContentDateSeparator(date: currentMessage.messageDate),
-                const SizedBox(height: 20),
-                MessageWidget(
-                  isUser: currentMessage.isUser,
-                  text: currentMessage.message,
-                ),
-              ],
-            );
-          }
-          // Обычное сообщение
-          return MessageWidget(
-            isUser: currentMessage.isUser,
-            text: currentMessage.message,
-          );
-        },
-        separatorBuilder: (context, index) => const SizedBox(height: 20),
-        itemCount: messages.length,
-        reverse: true,
-      ),
+    return BlocBuilder<MessengerBloc, MessengerState>(
+      builder: (context, state) {
+        if (state is! MessengerLoaded) {
+          return const Center(child: CircularProgressIndicator());
+        }
+        return Expanded(
+          child: ListView.separated(
+            padding: const EdgeInsets.symmetric(horizontal: 10),
+            itemBuilder: (context, index) {
+              MessageItemType currentMessage = state.item.allMessages[index];
+              // Первое сообщение
+              if (index == 0) {
+                return Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+                    MessageWidget(
+                      isUser: currentMessage.isUser,
+                      text: currentMessage.message,
+                      time: currentMessage.messageDate,
+                    ),
+                    const SizedBox(height: 30),
+                  ],
+                );
+              }
+              // Сообщение со сменой времени
+              if (currentMessage.messageDate.day - 1 ==
+                  state.item.allMessages[index].messageDate.day) {
+                return Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+                    PageChatContentDateSeparator(
+                        date: currentMessage.messageDate),
+                    const SizedBox(height: 20),
+                    MessageWidget(
+                      isUser: currentMessage.isUser,
+                      text: currentMessage.message,
+                      time: currentMessage.messageDate,
+                    ),
+                  ],
+                );
+              }
+              // Обычное сообщение
+              return MessageWidget(
+                isUser: currentMessage.isUser,
+                text: currentMessage.message,
+                time: currentMessage.messageDate,
+              );
+            },
+            separatorBuilder: (context, index) => const SizedBox(height: 20),
+            itemCount: state.item.allMessages.length,
+            reverse: true,
+          ),
+        );
+      },
     );
   }
 }

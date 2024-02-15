@@ -4,10 +4,15 @@ import 'package:mozz_test_messenger/ui/theme/app_texts/app_text_styles.dart';
 import 'package:mozz_test_messenger/ui/theme/app_texts/app_texts.dart';
 
 class PageChatMessenger extends StatelessWidget {
-  const PageChatMessenger({super.key});
+  final int accountId;
+  const PageChatMessenger({
+    super.key,
+    required this.accountId,
+  });
 
   @override
   Widget build(BuildContext context) {
+    TextEditingController controller = TextEditingController();
     return Column(
       children: [
         Divider(
@@ -27,6 +32,7 @@ class PageChatMessenger extends StatelessWidget {
                 width: MediaQuery.of(context).size.width * 0.65,
                 height: 42,
                 child: TextField(
+                  controller: controller,
                   decoration: InputDecoration(
                     filled: true,
                     contentPadding: const EdgeInsets.symmetric(
@@ -56,7 +62,7 @@ class PageChatMessenger extends StatelessWidget {
 
 class PageChatContentMessengerButton extends StatelessWidget {
   final IconData icon;
-  final void Function()? action; 
+  final void Function()? action;
   const PageChatContentMessengerButton({
     super.key,
     this.icon = Icons.abc,
@@ -67,12 +73,10 @@ class PageChatContentMessengerButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return IconButton(
       style: ButtonStyle(
-        backgroundColor: MaterialStatePropertyAll(AppColors.stroke),
-        shape: const MaterialStatePropertyAll(RoundedRectangleBorder(
-          borderRadius: BorderRadius.all(Radius.circular(12)))
-        ),
-        fixedSize: const MaterialStatePropertyAll(Size(42, 42))
-      ),
+          backgroundColor: MaterialStatePropertyAll(AppColors.stroke),
+          shape: const MaterialStatePropertyAll(RoundedRectangleBorder(
+              borderRadius: BorderRadius.all(Radius.circular(12)))),
+          fixedSize: const MaterialStatePropertyAll(Size(42, 42))),
       onPressed: action,
       icon: Icon(icon, color: AppColors.black),
     );

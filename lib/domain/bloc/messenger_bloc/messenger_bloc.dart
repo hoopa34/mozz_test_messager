@@ -9,6 +9,7 @@ part 'messenger_state.dart';
 class MessengerBloc extends Bloc<MessengerEvent, MessengerState> {
   MessengerBloc() : super(MessengerInitial()) {
     on<MessengerLoadEvent>(_load);
+    on<MessengerAddMessageEvent>(_addMessage);
   }
 
   Future<void> _load(
@@ -40,6 +41,30 @@ class MessengerBloc extends Bloc<MessengerEvent, MessengerState> {
         account = MessengerLoaded(item: bot);
         HiveBoxes.messengerItemType.add(bot);
       }
+      emit(account);
+    } catch (e) {
+      e;
+    }
+  }
+
+  Future<void> _addMessage(
+    MessengerAddMessageEvent event,
+    Emitter<MessengerState> emit,
+  ) async {
+    try {
+      MessengerLoaded account;
+      account = MessengerLoaded(
+        item: HiveBoxes.messengerItemType.values.toList()[event.accountId],
+      )..item.allMessages.insert(
+            0,
+            MessageItemType(
+              isUser: true,
+              isWatched: false,
+              messageDate: DateTime.now(),
+              message: event.message,
+            ),
+          );
+      HiveBoxes.messengerItemType.putAt(event.accountId, account.item);
       emit(account);
     } catch (e) {
       e;
