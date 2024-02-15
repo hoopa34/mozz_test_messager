@@ -5,6 +5,7 @@ import 'package:mozz_test_messenger/domain/hive/messenger_item_type.dart';
 import 'package:mozz_test_messenger/ui/pages/page_chat/page_chat_messenger.dart';
 import 'package:mozz_test_messenger/ui/theme/app_colors/app_colors.dart';
 import 'package:mozz_test_messenger/ui/theme/app_texts/app_text_styles.dart';
+import 'package:mozz_test_messenger/ui/theme/app_texts/app_texts.dart';
 import 'package:mozz_test_messenger/ui/widgets/message_widget/message_widget.dart';
 
 class PageChatContent extends StatelessWidget {
@@ -44,6 +45,25 @@ class PageChatContetnMessages extends StatelessWidget {
               MessageItemType currentMessage = state.item.allMessages[index];
               // Первое сообщение
               if (index == 0) {
+                if (currentMessage.messageDate.day <=
+                  state.item.allMessages[index + 1].messageDate.day) {
+                return Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+                    PageChatContentDateSeparator(
+                      date: currentMessage.messageDate,
+                    ),
+                    const SizedBox(height: 20),
+                    MessageWidget(
+                      isUser: currentMessage.isUser,
+                      text: currentMessage.message,
+                      time: currentMessage.messageDate,
+                      isWatched: currentMessage.isWatched,
+                    ),
+                    const SizedBox(height: 30),
+                  ],
+                );
+              }
                 return Column(
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
@@ -51,24 +71,27 @@ class PageChatContetnMessages extends StatelessWidget {
                       isUser: currentMessage.isUser,
                       text: currentMessage.message,
                       time: currentMessage.messageDate,
+                      isWatched: currentMessage.isWatched,
                     ),
                     const SizedBox(height: 30),
                   ],
                 );
               }
               // Сообщение со сменой времени
-              if (currentMessage.messageDate.day - 1 ==
-                  state.item.allMessages[index].messageDate.day) {
+              if (currentMessage.messageDate.day <=
+                  state.item.allMessages[index - 1].messageDate.day) {
                 return Column(
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
                     PageChatContentDateSeparator(
-                        date: currentMessage.messageDate),
+                      date: currentMessage.messageDate,
+                    ),
                     const SizedBox(height: 20),
                     MessageWidget(
                       isUser: currentMessage.isUser,
                       text: currentMessage.message,
                       time: currentMessage.messageDate,
+                      isWatched: currentMessage.isWatched,
                     ),
                   ],
                 );
@@ -78,6 +101,7 @@ class PageChatContetnMessages extends StatelessWidget {
                 isUser: currentMessage.isUser,
                 text: currentMessage.message,
                 time: currentMessage.messageDate,
+                isWatched: currentMessage.isWatched,
               );
             },
             separatorBuilder: (context, index) => const SizedBox(height: 20),
@@ -90,6 +114,7 @@ class PageChatContetnMessages extends StatelessWidget {
   }
 }
 
+// Сепаратор
 class PageChatContentDateSeparator extends StatelessWidget {
   final DateTime date;
   const PageChatContentDateSeparator({
@@ -99,6 +124,16 @@ class PageChatContentDateSeparator extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    String datePicker() {
+      DateTime now = DateTime.now();
+      int lastDay = date.year + date.month + date.day;
+      int today = now.year + now.month + now.day;
+      if (lastDay == today) {
+        return AppTexts.today;
+      }
+      return '${date.day}.${date.month}.${date.year}';
+    }
+
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       crossAxisAlignment: CrossAxisAlignment.center,
@@ -112,7 +147,7 @@ class PageChatContentDateSeparator extends StatelessWidget {
               border: Border.all(color: AppColors.gray, width: 0.5)),
         ),
         Text(
-          '${date.day}.${date.month}.${date.year}',
+          datePicker(),
           style: AppTestStyles.date,
         ),
         Container(

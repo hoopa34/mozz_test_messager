@@ -10,6 +10,6 @@ void main() async {
   Hive.registerAdapter(MessageItemTypeAdapter());
   Hive.registerAdapter(MessengerItemTypeAdapter());
   await Hive.openBox<MessengerItemType>(HiveKeys.messengerItemTypeKey);
-  HiveBoxes.messengerItemType.clear();
+  await HiveBoxes.messengerItemType.clear();
   runApp(const App());
 }

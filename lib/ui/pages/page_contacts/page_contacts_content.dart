@@ -145,28 +145,31 @@ class PageContactsContentContactDate extends StatelessWidget {
       DateTime currentTime = DateTime.now();
       String output = '01.01.1999';
 
-      if (currentTime.year != lastTimeOnline.year) {
-        output =
-            '${lastTimeOnline.day}.${lastTimeOnline.month}.${lastTimeOnline.year}';
-      }
-      if (currentTime.month != lastTimeOnline.month) {
-        output =
-            '${lastTimeOnline.day}.${lastTimeOnline.month}.${lastTimeOnline.year}';
-      }
-      if (currentTime.day - 1 == lastTimeOnline.day) {
-        output = AppTexts.yesterday;
-      }
-      if (currentTime.day != lastTimeOnline.day) {
-        output = '${lastTimeOnline.day - currentTime.day} дня назад';
+      if (currentTime == lastTimeOnline) {
+        output = AppTexts.online;
       }
       if (currentTime.minute != lastTimeOnline.minute) {
         output = '${lastTimeOnline.hour}:${lastTimeOnline.minute}';
       }
       if (currentTime.minute - 15 <= lastTimeOnline.minute) {
-        output = '${currentTime.minute - lastTimeOnline.minute} минуты назад';
+        int check = currentTime.minute - lastTimeOnline.minute;
+        if (check > 0) {
+          output = '$check минуты назад';
+        }
       }
-      if (currentTime == lastTimeOnline) {
-        output = AppTexts.online;
+      if (currentTime.day != lastTimeOnline.day) {
+        output = '${lastTimeOnline.day - currentTime.day} дня назад';
+      }
+      if (currentTime.day - 1 == lastTimeOnline.day) {
+        output = AppTexts.yesterday;
+      }
+      if (currentTime.month != lastTimeOnline.month) {
+        output =
+            '${lastTimeOnline.day}.${lastTimeOnline.month}.${lastTimeOnline.year}';
+      }
+      if (currentTime.year != lastTimeOnline.year) {
+        output =
+            '${lastTimeOnline.day}.${lastTimeOnline.month}.${lastTimeOnline.year}';
       }
 
       return output;

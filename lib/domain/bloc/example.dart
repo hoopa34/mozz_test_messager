@@ -1,7 +1,7 @@
 import 'package:mozz_test_messenger/domain/hive/messenger_item_type.dart';
 
 abstract class Example {
-  MessengerItemType first = MessengerItemType(
+  static final MessengerItemType first = MessengerItemType(
     accountId: 0,
     accountName: 'Виктор Власов',
     isOnline: false,
@@ -14,7 +14,13 @@ abstract class Example {
       MessageItemType(
         isUser: true,
         isWatched: false,
-        messageDate: DateTime.now(),
+        messageDate: DateTime(
+          DateTime.now().year,
+          DateTime.now().month,
+          DateTime.now().day,
+          21,
+          41,
+        ),
         message: 'Уже сделал?',
       ),
       MessageItemType(
@@ -32,7 +38,7 @@ abstract class Example {
     ],
   );
 
-  MessengerItemType second = MessengerItemType(
+  static final MessengerItemType second = MessengerItemType(
     accountId: 1,
     accountName: 'Саша Алексеев',
     isOnline: false,
@@ -47,7 +53,7 @@ abstract class Example {
     ],
   );
 
-  MessengerItemType third = MessengerItemType(
+  static final MessengerItemType third = MessengerItemType(
     accountId: 2,
     accountName: 'Пётр Жаринов',
     isOnline: false,
@@ -68,7 +74,7 @@ abstract class Example {
     ],
   );
 
-  MessengerItemType four = MessengerItemType(
+  static final MessengerItemType four = MessengerItemType(
     accountId: 3,
     accountName: 'Пётр Жаринов',
     isOnline: false,

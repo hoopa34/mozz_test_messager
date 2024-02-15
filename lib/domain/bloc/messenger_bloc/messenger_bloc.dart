@@ -1,5 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:mozz_test_messenger/domain/bloc/example.dart';
 import 'package:mozz_test_messenger/domain/hive/hive_boxes.dart';
 import 'package:mozz_test_messenger/domain/hive/messenger_item_type.dart';
 
@@ -23,22 +24,16 @@ class MessengerBloc extends Bloc<MessengerEvent, MessengerState> {
           item: HiveBoxes.messengerItemType.values.toList()[event.accountId],
         );
       } else {
-        MessengerItemType bot = MessengerItemType(
-          accountId: 0,
-          accountName: 'Favorite Bot!',
-          isOnline: true,
-          lastTimeOnline: DateTime.now(),
-          allMessages: [
-            MessageItemType(
-              isUser: false,
-              isWatched: true,
-              messageDate: DateTime.now(),
-              message: 'Привет! Я простенький бот для симуляции!',
-            ),
-          ],
+        HiveBoxes.messengerItemType.addAll({
+          Example.first,
+          Example.second,
+          Example.third,
+          Example.four,
+        });
+
+        account = MessengerLoaded(
+          item: HiveBoxes.messengerItemType.values.toList()[event.accountId],
         );
-        account = MessengerLoaded(item: bot);
-        HiveBoxes.messengerItemType.add(bot);
       }
       emit(account);
     } catch (e) {
