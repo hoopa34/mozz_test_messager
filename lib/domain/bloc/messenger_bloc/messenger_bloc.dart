@@ -42,8 +42,7 @@ class MessengerBloc extends Bloc<MessengerEvent, MessengerState> {
       }
       emit(account);
     } catch (e) {
-      print('Messenger bloc');
-      print(e);
+      e;
     }
   }
 }

@@ -34,8 +34,7 @@ class ContactsBloc extends Bloc<ContactsEvent, ContactsState> {
       } else {}
       emit(ContactsLoaded(allContacts: rewriteList));
     } catch (e) {
-      print('Contacts bloc');
-      print(e);
+      e;
     }
   }
 }
