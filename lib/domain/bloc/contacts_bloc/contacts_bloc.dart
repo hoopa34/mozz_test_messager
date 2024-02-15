@@ -8,14 +8,12 @@ part 'contacts_state.dart';
 
 class ContactsBloc extends Bloc<ContactsEvent, ContactsState> {
   ContactsBloc() : super(ContactsInitial()) {
-    on<ContactsEvent>((event, emit) {
-      // TODO: implement event handler
-    });
+    on<ContactsLoadEvent>(_load);
   }
 
   Future<void> _load(
     ContactsLoadEvent event,
-    Emitter<ContactsLoaded> emit,
+    Emitter<ContactsState> emit,
   ) async {
     try {
       List<Contacts> rewriteList = [];
