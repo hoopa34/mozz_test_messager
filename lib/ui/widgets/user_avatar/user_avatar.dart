@@ -5,8 +5,10 @@ import 'package:mozz_test_messenger/ui/theme/app_colors/app_gradients.dart';
 import 'package:mozz_test_messenger/ui/theme/app_texts/app_text_styles.dart';
 
 class UserAvatar extends StatelessWidget {
+  final String? data;
   const UserAvatar({
     super.key,
+    this.data
   });
 
   @override
@@ -26,6 +28,21 @@ class UserAvatar extends StatelessWidget {
       }
     }
 
+    String dataEditing(){
+      String outputText = 'Error';
+
+      if(data == null){
+        return outputText;
+      }
+
+      outputText = data ?? "Error";
+
+      List<String> list = outputText.split(' ');
+      outputText = list[0][0] + list[1][0];
+
+      return outputText;
+    }
+
     return ClipRRect(
       borderRadius: const BorderRadius.all(
         Radius.circular(34),
@@ -36,7 +53,7 @@ class UserAvatar extends StatelessWidget {
         decoration: BoxDecoration(gradient: randomGradient()),
         child: Center(
           child: Text(
-            'ВВ',
+            dataEditing(),
             style: AppTestStyles.profileAvatar,
           ),
         ),

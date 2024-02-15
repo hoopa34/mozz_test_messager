@@ -55,7 +55,7 @@ class PageContactsContentContact extends StatelessWidget {
             padding: const EdgeInsets.symmetric(vertical: 10),
             child: Row(
               children: [
-                const UserAvatar(),
+                UserAvatar(data: contact.accountName),
                 const SizedBox(width: 12),
                 PageContactsContentContactTitle(
                   accountName: contact.accountName,
@@ -98,15 +98,26 @@ class PageContactsContentContactTitle extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(accountName, style: AppTestStyles.profileTitle),
-        isUser
-            ? Row(
-                children: [
-                  Text(AppTexts.you, style: AppTestStyles.profileYou),
-                  const SizedBox(width: 4),
-                  Text(lastMessage, style: AppTestStyles.profileMessage),
-                ],
-              )
-            : Text(lastMessage, style: AppTestStyles.profileMessage),
+        SizedBox(
+          width: MediaQuery.of(context).size.width * 0.45,
+          child: isUser
+              ? Row(
+                  children: [
+                    Text(AppTexts.you, style: AppTestStyles.profileYou),
+                    const SizedBox(width: 4),
+                    Text(
+                      lastMessage,
+                      style: AppTestStyles.profileMessage,
+                      maxLines: 1,
+                    ),
+                  ],
+                )
+              : Text(
+                  lastMessage,
+                  style: AppTestStyles.profileMessage,
+                  maxLines: 1,
+                ),
+        ),
       ],
     );
   }
@@ -121,12 +132,44 @@ class PageContactsContentContactDate extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    String datePicker() {
+      DateTime currentTime = DateTime.now();
+      String output = '01.01.1999';
+
+      if (currentTime.year != lastTimeOnline.year) {
+        output =
+            '${lastTimeOnline.day}.${lastTimeOnline.month}.${lastTimeOnline.year}';
+      }
+      if (currentTime.month != lastTimeOnline.month) {
+        output =
+            '${lastTimeOnline.day}.${lastTimeOnline.month}.${lastTimeOnline.year}';
+      }
+      if (currentTime.day - 1 == lastTimeOnline.day) {
+        output = 'Вчера';
+      }
+      if (currentTime.day != lastTimeOnline.day) {
+        output = '${lastTimeOnline.day - currentTime.day} дня назад';
+      }
+      if (currentTime.minute != lastTimeOnline.minute) {
+        output = '${lastTimeOnline.hour}:${lastTimeOnline.minute}';
+      }
+      if (currentTime.minute - 15 <= lastTimeOnline.minute) {
+        output = '${currentTime.minute - lastTimeOnline.minute} минуты назад';
+      }
+      if (currentTime == lastTimeOnline) {
+        output = 'Онлайн';
+      }
+
+      return output;
+    }
+
     return SizedBox(
       height: 50,
       child: Padding(
           padding: const EdgeInsets.only(right: 12),
           child: Text(
-            '01.01.1999',
+            datePicker(),
+            textAlign: TextAlign.end,
             style: AppTestStyles.profileMessage,
           )),
     );
