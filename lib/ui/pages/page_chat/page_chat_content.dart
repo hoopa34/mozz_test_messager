@@ -27,9 +27,7 @@ class PageChatContent extends StatelessWidget {
 }
 
 class PageChatContetnMessages extends StatelessWidget {
-  const PageChatContetnMessages({
-    super.key,
-  });
+  const PageChatContetnMessages({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -40,77 +38,65 @@ class PageChatContetnMessages extends StatelessWidget {
         }
         return Expanded(
           child: ListView.separated(
-            padding: const EdgeInsets.symmetric(horizontal: 10),
-            itemBuilder: (context, index) {
-              MessageItemType currentMessage = state.item.allMessages[index];
-              // Первое сообщение
-              if (index == 0) {
-                if (currentMessage.messageDate.day <=
-                  state.item.allMessages[index + 1].messageDate.day) {
-                return Column(
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                  children: [
-                    PageChatContentDateSeparator(
-                      date: currentMessage.messageDate,
-                    ),
-                    const SizedBox(height: 20),
-                    MessageWidget(
-                      isUser: currentMessage.isUser,
-                      text: currentMessage.message,
-                      time: currentMessage.messageDate,
-                      isWatched: currentMessage.isWatched,
-                    ),
-                    const SizedBox(height: 30),
-                  ],
-                );
-              }
-                return Column(
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                  children: [
-                    MessageWidget(
-                      isUser: currentMessage.isUser,
-                      text: currentMessage.message,
-                      time: currentMessage.messageDate,
-                      isWatched: currentMessage.isWatched,
-                    ),
-                    const SizedBox(height: 30),
-                  ],
-                );
-              }
-              // Сообщение со сменой времени
-              if (currentMessage.messageDate.day <=
-                  state.item.allMessages[index - 1].messageDate.day) {
-                return Column(
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                  children: [
-                    PageChatContentDateSeparator(
-                      date: currentMessage.messageDate,
-                    ),
-                    const SizedBox(height: 20),
-                    MessageWidget(
-                      isUser: currentMessage.isUser,
-                      text: currentMessage.message,
-                      time: currentMessage.messageDate,
-                      isWatched: currentMessage.isWatched,
-                    ),
-                  ],
-                );
-              }
-              // Обычное сообщение
-              return MessageWidget(
-                isUser: currentMessage.isUser,
-                text: currentMessage.message,
-                time: currentMessage.messageDate,
-                isWatched: currentMessage.isWatched,
-              );
-            },
-            separatorBuilder: (context, index) => const SizedBox(height: 20),
-            itemCount: state.item.allMessages.length,
+            separatorBuilder: (context, index) => MessageWidget(
+              isUser: state.item.allMessages[index].isUser,
+              text: state.item.allMessages[index].message,
+              time: state.item.allMessages[index].messageDate,
+              isWatched: state.item.allMessages[index].isWatched,
+            ),
+            itemBuilder: (context, index) => Separator(
+              index: index,
+              last: state.item.allMessages.length-1,
+              date: state.item.allMessages[index == 0 ? 0 : index - 1].messageDate,
+            ),
+            itemCount: state.item.allMessages.length + 1,
             reverse: true,
           ),
         );
       },
     );
+  }
+}
+
+class Separator extends StatelessWidget {
+  final int index;
+  final int last;
+  final DateTime date;
+  const Separator({
+    super.key,
+    required this.index,
+    required this.last,
+    required this.date,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    Widget widget = const SizedBox(height: 20);
+
+    if (index - 1 == last){
+      widget = Column(
+        children: [
+          PageChatContentDateSeparator(date: date),
+          const SizedBox(height: 20),
+        ],
+      );
+    }
+
+    if(date.day == DateTime.now().day){
+      widget = Column(
+        children: [
+          const SizedBox(height: 20),
+          PageChatContentDateSeparator(date: date),
+          const SizedBox(height: 20),
+        ],
+      );
+    }
+
+    if (index == 0) {
+      widget = const SizedBox(height: 30);
+    }
+
+    return widget;
   }
 }
 
