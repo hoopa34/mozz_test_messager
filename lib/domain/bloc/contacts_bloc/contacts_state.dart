@@ -23,7 +23,7 @@ final class Contacts {
   final String accountName;
   final bool isOnline;
   final DateTime lastTimeOnline;
-  final String lastMessage;
+  final MessageItemType lastMessage;
 
   const Contacts({
     required this.accountId,

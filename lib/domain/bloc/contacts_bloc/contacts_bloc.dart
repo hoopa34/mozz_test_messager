@@ -27,7 +27,7 @@ class ContactsBloc extends Bloc<ContactsEvent, ContactsState> {
             accountName: list[i].accountName,
             isOnline: list[i].isOnline,
             lastTimeOnline: list[i].lastTimeOnline,
-            lastMessage: list[i].allMessages.first.message,
+            lastMessage: list[i].allMessages.first,
           );
           rewriteList.add(item);
         }

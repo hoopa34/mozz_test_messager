@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:mozz_test_messenger/domain/bloc/messenger_bloc/messenger_bloc.dart';
+import 'package:mozz_test_messenger/domain/bloc/contacts_bloc/contacts_bloc.dart';
 import 'package:mozz_test_messenger/ui/pages/page_contacts/page_contacts_app_bar.dart';
 import 'package:mozz_test_messenger/ui/pages/page_contacts/page_contacts_content.dart';
 
@@ -10,14 +10,14 @@ class PageContacts extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<MessengerBloc, MessengerState>(
+    return BlocBuilder<ContactsBloc, ContactsState>(
       builder: (context, state) {
-        if (state is! MessengerLoaded) {
+        if (state is! ContactsLoaded) {
           return const Center(child: CircularProgressIndicator());
         }
-        return const Scaffold(
-          appBar: PageContactsAppBar(),
-          body: PageContactsContent(),
+        return Scaffold(
+          appBar: const PageContactsAppBar(),
+          body: PageContactsContent(contacts: state.allContacts),
         );
       },
     );
