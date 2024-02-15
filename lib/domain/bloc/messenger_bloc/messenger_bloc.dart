@@ -23,26 +23,27 @@ class MessengerBloc extends Bloc<MessengerEvent, MessengerState> {
           item: HiveBoxes.messengerItemType.values.toList()[event.accountId],
         );
       } else {
-        account = MessengerLoaded(
-          item: MessengerItemType(
-            accountId: 0,
-            accountName: 'Favorite Bot!',
-            isOnline: true,
-            lastTimeOnline: DateTime.now(),
-            allMessages: [
-              MessageItemType(
-                isUser: false,
-                isWatched: true,
-                messageDate: DateTime.now(),
-                message: 'Привет! Я простенький бот для симуляции!',
-              ),
-            ],
-          ),
+        MessengerItemType bot = MessengerItemType(
+          accountId: 0,
+          accountName: 'Favorite Bot!',
+          isOnline: true,
+          lastTimeOnline: DateTime.now(),
+          allMessages: [
+            MessageItemType(
+              isUser: false,
+              isWatched: true,
+              messageDate: DateTime.now(),
+              message: 'Привет! Я простенький бот для симуляции!',
+            ),
+          ],
         );
+        account = MessengerLoaded(item: bot);
+        HiveBoxes.messengerItemType.add(bot);
       }
       emit(account);
     } catch (e) {
-      e;
+      print('Messenger bloc');
+      print(e);
     }
   }
 }

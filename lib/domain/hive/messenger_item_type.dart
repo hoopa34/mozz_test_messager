@@ -30,10 +30,15 @@ class MessengerItemType{
 
 }
 
+@HiveType(typeId: 1)
 class MessageItemType{
+  @HiveField(0)
   String message;
+  @HiveField(1)
   bool isUser;
+  @HiveField(2)
   bool isWatched;
+  @HiveField(3)
   DateTime messageDate;
 
   MessageItemType({

@@ -7,6 +7,6 @@ import 'package:mozz_test_messenger/ui/app.dart';
 void main() async {
   await Hive.initFlutter();
   Hive.registerAdapter(MessengerItemTypeAdapter());
-  await Hive.openBox<MessageItemType>(HiveKeys.messengerItemTypeKey);
+  await Hive.openBox<MessengerItemType>(HiveKeys.messengerItemTypeKey);
   runApp(const App());
 }

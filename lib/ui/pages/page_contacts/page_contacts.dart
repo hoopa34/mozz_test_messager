@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:mozz_test_messenger/domain/messenger_bloc/messenger_bloc.dart';
+import 'package:mozz_test_messenger/domain/bloc/messenger_bloc/messenger_bloc.dart';
 import 'package:mozz_test_messenger/ui/pages/page_contacts/page_contacts_app_bar.dart';
 import 'package:mozz_test_messenger/ui/pages/page_contacts/page_contacts_content.dart';
 
