@@ -67,6 +67,7 @@ class PageContactsContentContact extends StatelessWidget {
                 const Spacer(),
                 PageContactsContentContactDate(
                   lastTimeOnline: contact.lastTimeOnline,
+                  isOnline: contact.isOnline,
                 ),
               ],
             ),
@@ -126,15 +127,22 @@ class PageContactsContentContactTitle extends StatelessWidget {
 }
 
 class PageContactsContentContactDate extends StatelessWidget {
+  final bool isOnline;
   final DateTime lastTimeOnline;
   const PageContactsContentContactDate({
     super.key,
     required this.lastTimeOnline,
+    required this.isOnline,
   });
 
   @override
   Widget build(BuildContext context) {
     String datePicker() {
+      
+      if(isOnline){
+        return AppTexts.online;
+      }
+
       DateTime currentTime = DateTime.now();
       String output = '01.01.1999';
 
@@ -147,7 +155,7 @@ class PageContactsContentContactDate extends StatelessWidget {
             '${lastTimeOnline.day}.${lastTimeOnline.month}.${lastTimeOnline.year}';
       }
       if (currentTime.day - 1 == lastTimeOnline.day) {
-        output = 'Вчера';
+        output = AppTexts.yesterday;
       }
       if (currentTime.day != lastTimeOnline.day) {
         output = '${lastTimeOnline.day - currentTime.day} дня назад';
@@ -159,7 +167,7 @@ class PageContactsContentContactDate extends StatelessWidget {
         output = '${currentTime.minute - lastTimeOnline.minute} минуты назад';
       }
       if (currentTime == lastTimeOnline) {
-        output = 'Онлайн';
+        output = AppTexts.online;
       }
 
       return output;
